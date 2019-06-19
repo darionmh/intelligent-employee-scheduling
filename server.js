@@ -9,6 +9,11 @@ const port = process.env.PORT
 
 app.use(bodyParser.json());
 
+console.log("database: ", process.env.DATABASE)
+console.log("database url: ", process.env.DATABASE_URL)
+console.log("user: ", process.env.DATABASE_USER)
+console.log("pass: ", process.env.DATABASE_PASS)
+
 /** Setup */
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.DATABASE_PASS, {
     host: process.env.DATABASE_URL,
