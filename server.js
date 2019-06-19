@@ -1,15 +1,17 @@
 const express = require("express")
 const app = express()
-const port = 3001
 const Sequelize = require("sequelize")
 const bodyParser = require('body-parser');
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
+const port = process.env.PORT
 
 app.use(bodyParser.json());
 
 /** Setup */
-const sequelize = new Sequelize("test", "test", "pass", {
-    host: "localhost",
+const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.DATABASE_PASS, {
+    host: process.env.DATABASE_URL,
     dialect: "mysql"
 })
 
