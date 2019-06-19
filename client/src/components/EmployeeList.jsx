@@ -8,7 +8,7 @@ function EmployeeList(){
 
     const fetchEmployees = () => {
 
-        fetch("/employees")
+        fetch("/api/employees")
         .then((res) => res.json())
         .then((json) => setEmployees(json))
     }
@@ -18,7 +18,7 @@ function EmployeeList(){
     }, [])
 
     const handleDelete = (id) => {
-        fetch('/employees/'+id, {
+        fetch('/api/employees/'+id, {
             method: 'DELETE'
         })
         .then((res) => {
@@ -28,7 +28,7 @@ function EmployeeList(){
 
     const handleAdd = (EMPLOYEE_ID, FIRST_NAME, LAST_NAME) => {
         setShowAddEmployeeModal(false)
-        fetch('/employees', {
+        fetch('/api/employees', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
