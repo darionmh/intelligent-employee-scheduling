@@ -17,7 +17,8 @@ console.log("pass: ", process.env.DATABASE_PASS)
 /** Setup */
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.DATABASE_PASS, {
     host: process.env.DATABASE_URL,
-    dialect: "mysql"
+    dialect: "mysql",
+    timeout: 60000
 })
 
 sequelize.authenticate()
