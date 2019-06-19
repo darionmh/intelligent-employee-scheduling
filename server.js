@@ -5,13 +5,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
-const port = 3001
+const port = process.env.PORT || 5000
 const fs = require('fs');
 const rdsCa = fs.readFileSync(__dirname + '/config/amazon-rds-ca-cert.pem');
 
 app.use(bodyParser.json());
 
-// console.log("port: ", process.env.PORT)
+console.log("port: ", process.env.PORT)
 console.log("database: ", process.env.DATABASE)
 console.log("database url: ", process.env.DATABASE_URL)
 console.log("user: ", process.env.DATABASE_USER)
