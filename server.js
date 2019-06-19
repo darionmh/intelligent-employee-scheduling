@@ -6,6 +6,8 @@ const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
 const port = process.env.PORT
+const fs = require('fs');
+const rdsCa = fs.readFileSync(__dirname + '/config/amazon-rds-ca-cert.pem');
 
 app.use(bodyParser.json());
 
@@ -15,11 +17,26 @@ console.log("user: ", process.env.DATABASE_USER)
 console.log("pass: ", process.env.DATABASE_PASS)
 
 /** Setup */
-const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.DATABASE_PASS, {
+// const sequelize = new Sequelize(process.env.DATABASE_URL, {})
+sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.DATABASE_PASS, {
     host: process.env.DATABASE_URL,
-    dialect: "mysql",
-    timeout: 60000
-})
+    dialect: 'mysql',
+    ssl: true,
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: true,
+            ca: [rdsCa]
+        }
+    },
+    define: {
+      timestamps: false
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    },
+  })
 
 sequelize.authenticate()
 .then(() => {
