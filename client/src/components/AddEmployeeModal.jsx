@@ -30,9 +30,9 @@ function AddEmployeeModal({open, onCancel, onAdd}){
             <Modal.Content>
                 <Form>
                     <Form.Group widths='equal'>
-                    <StatusInput label='Employee Id' placeholder='Employee Id' onChange={e => setEmployeeId(e.target.value)} errorMessage="Must be numeric." error={employeeIdError}/>
-                    <StatusInput label='First name' placeholder='First name' onChange={e => setFirstName(e.target.value)}/>
-                    <StatusInput label='Last name' placeholder='Last name' onChange={e => setLastName(e.target.value)}/>
+                    <StatusInput label='Employee Id' placeholder='Employee Id' onSubmit={validateFields} onChange={e => setEmployeeId(e.target.value)} errorMessage="Must be numeric." error={employeeIdError}/>
+                    <StatusInput label='First name' placeholder='First name' onSubmit={validateFields} onChange={e => setFirstName(e.target.value)}/>
+                    <StatusInput label='Last name' placeholder='Last name' onSubmit={validateFields} onChange={e => setLastName(e.target.value)}/>
                     </Form.Group>
                 </Form>
             </Modal.Content>
@@ -44,12 +44,12 @@ function AddEmployeeModal({open, onCancel, onAdd}){
     )
 }
 
-const StatusInput = ({label, placeholder, onChange, error, errorMessage}) => {
+export const StatusInput = ({label, placeholder, onChange, onSubmit, error, errorMessage}) => {
     if(error){
         const inputField = <Form.Input fluid label={label} placeholder={placeholder} onChange={onChange} icon="warning sign"/>
         return <Popup content={errorMessage} trigger={inputField} />
     }else{
-        return <Form.Input fluid label={label} placeholder={placeholder} onChange={onChange}/>
+        return <Form.Input fluid label={label} placeholder={placeholder} onChange={onChange} onSubmit={onSubmit}/>
     }
 }
 
